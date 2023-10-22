@@ -1,0 +1,10 @@
+.movie-image{
+    max-height: 300px;
+    width: 100%;
+}
+.slds-box{
+    padding: 0!important;
+}
+.view-details-button{
+    float: right;
+}

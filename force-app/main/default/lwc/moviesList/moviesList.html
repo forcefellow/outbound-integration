@@ -1,0 +1,59 @@
+<template>
+    <lightning-layout>
+        <lightning-layout-item size="9" class="slds-m-right_x-small">
+            <lightning-card title="Movies List">
+                <!-- SEARCH PANEL -->
+                <div class="slds-p-around_medium slds-border_bottom">
+                    <lightning-layout>
+                        <lightning-layout-item size="9">
+                            <lightning-input value={searchText} lwc:ref="searchInput"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item class="slds-m-top_medium">
+                            <lightning-button class="slds-m-left_medium " label="Search" varient="brand"
+                                onclick={searchClickHandler}></lightning-button>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <!-- ENTER SOMETHING -->
+                <template lwc:if={showEnterSearchText}>
+                    <p class="slds-text-heading_large slds-p-around_small">Please enter something in textbox and click
+                        on search button</p>
+                </template>
+                <!-- NO RECORDS FOUND PANEL -->
+                <template lwc:if={noMoviesFound}>
+                    <p class="slds-text-heading_large slds-p-around_small">No movies found. Please try with another
+                        search keyword.</p>
+                </template>
+                <!-- LOADER -->
+                <template if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+                    </lightning-spinner>
+                </template>
+                <!-- ITERATE MOVIES LIST -->
+                <lightning-layout multiple-rows>
+                    <template for:each={movies} for:item="movie">
+                        <lightning-layout-item size="3" key={movie.imdbID} class="slds-m-around_medium slds-box">
+                            <img src={movie.Poster} class="movie-image" alt="No image found" />
+                            <div class="slds-p-around_x-small">
+                                <p class="slds-text-heading_medium slds-p-bottom_small">{movie.Title}</p>
+                                <span class="slds-badge">{movie.Year}</span>
+                                <!-- <span class="slds-badge slds-theme_success"> {movie.Type}</span> -->
+                                <lightning-button-icon icon-name="utility:summarydetail" variant="brand"
+                                    alternative-text="View Details" onclick={viewDetailsClickHandler}
+                                    data-movie-id={movie.imdbID} size="small"
+                                    class="view-details-button"></lightning-button-icon>
+                            </div>
+                        </lightning-layout-item>
+                    </template>
+                </lightning-layout>
+
+            </lightning-card>
+        </lightning-layout-item>
+
+        <!-- ADD CHILD COMPONENT - MOVIE DETAILS -->
+        <lightning-layout-item size="3">
+            <c-movie-details movie-id={selectedMovieId}></c-movie-details>
+        </lightning-layout-item>
+    </lightning-layout>
+
+</template>

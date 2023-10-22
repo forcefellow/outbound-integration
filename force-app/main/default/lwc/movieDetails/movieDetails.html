@@ -1,0 +1,55 @@
+<template>
+    <lightning-card title="Movie Details">
+        <!-- SELECT MOVIE TEMPLATE -->
+        <template if:false={movieId}>
+            <p class="slds-text-heading_medium slds-p-around_small"> Select movie to see details</p>
+        </template>
+        <!-- LOADER TEMPLATE -->
+        <template if:true={isLoading}>
+            <div class="slds-p-around_large"> &nbsp;</div>
+            <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+            </lightning-spinner>
+        </template>
+        <!-- MOVIE DETAIL TEMPLATE -->
+        <template lwc:if={showMovieContent}>
+            <img src={movieDetails.Poster} alt="Image not found" class="movie-image">
+            <div class="slds-p-around_small">
+                <p class="slds-text-heading_medium slds-p-bottom_small"> {movieDetails.Title}</p>
+                <lightning-layout multiple-rows>
+                    <!-- ROW 1 -->
+                    <lightning-layout-item size="6" class="slds-border_bottom slds-border_top slds-p-around_small">
+                        <strong>IMDB Rating
+                        </strong></lightning-layout-item>
+                    <lightning-layout-item size="6" class="slds-border_bottom slds-border_top slds-p-around_small">
+                        <lightning-icon size="xx-small" icon-name="utility:favorite" variant="warning"
+                            alternative-text="Star" title="Star"></lightning-icon>
+                        &nbsp;{movieDetails.imdbRating}
+                    </lightning-layout-item>
+                    <!-- ROW 2 -->
+                    <lightning-layout-item size="6" class="slds-border_bottom slds-p-around_small"><strong>Release
+                            Date</strong></lightning-layout-item>
+                    <lightning-layout-item size="6"
+                        class="slds-border_bottom slds-p-around_small">{movieDetails.Released}
+                    </lightning-layout-item>
+                    <!-- ROW 3 -->
+                    <lightning-layout-item size="6" class="slds-border_bottom slds-p-around_small"><strong>Box
+                            Office Collection</strong></lightning-layout-item>
+                    <lightning-layout-item size="6"
+                        class="slds-border_bottom slds-p-around_small">{movieDetails.BoxOffice}
+                    </lightning-layout-item>
+                    <!-- ROW 4 -->
+                    <lightning-layout-item size="6"
+                        class="slds-border_bottom slds-p-around_small"><strong>Director</strong></lightning-layout-item>
+                    <lightning-layout-item size="6"
+                        class="slds-border_bottom slds-p-around_small">{movieDetails.Director}
+                    </lightning-layout-item>
+                    <!-- ROW 5 -->
+                    <lightning-layout-item size="6"
+                        class="slds-p-around_small"><strong>Actors</strong></lightning-layout-item>
+                    <lightning-layout-item size="6" class="slds-p-around_small">{movieDetails.Actors}
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+        </template>
+    </lightning-card>
+</template>
